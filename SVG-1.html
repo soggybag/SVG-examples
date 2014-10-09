@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<h1>SVG</h1>
+		<p>Use SCG to draw vector graphic images into a page. You can create shapes 
+		like circles and rectangles. You can also create polygons shapes and lines. 
+		Objects can have a stroke and a fill.
+		
+		<p>SVG objects are created with "tags" like other HTML elements. Most fo the SVG
+		tags use attributes to set their appearance, elements can also be styled and 
+		animated with CSS. 
+		
+		<p>SVG is written in XML, similar to HTML it follows slightly different rules. 
+		In the SVG element all elements must close, and if they don't have closing tag
+		the element should end if the /. For example &lt;circle /&gt;
+		
+		<ul>
+			<li>cx - set the x or horizontal position of the element
+			<li>cy - set the y or vertical position of the element 
+			<li>r - set the radius of the circle
+			<li>stroke - set the color of the stroke
+			<li>stroke-width - set the weight of the stroke
+			<li>fill - set the fill color
+		</ul>
+		
+		<p>An SVG "drawing" is contained in the SVG tag. Use the width and height 
+		attributes to set the size of the drawing. 
+		<svg width="100" height="100" style="border: 1px solid #000">
+			<circle cx="50" cy="50" r="40" stroke="#000" stroke-width="5" fill="#F00" />
+		</svg>
+		
+		<p> The circle is located around the center point. Set the cx, and cy to 0 and 
+		refresh. You will see the circle aligned with the upper left corner of the SVG
+		element. Notice the cx, and cy values are relative to the SVG element. 
+		
+		<svg width="200" height="200" style="border: 1px solid #000">
+			<rect x="20" y="10" width="50" height="100" style="fill:rgba(255,0,255,0.5); stroke-width:8; stroke:rgba(0,0,0,0.5)"
+		</svg>
+		
+		<p>Notice the stroke traps (overlaps) the fill by 50%. 
+		
+		<svg width="200" height="200" style="border: 1px solid #000">
+			<rect x="20" y="10" width="50" height="100" style="fill:#E39; stroke-width:8; stroke:#303; opacity:0.5"
+		</svg>
+		
+		<p>Here the stroke and the fill are transparent without showing the "trapping."
+		In this case 
+		
+		 <svg width="200" height="200" style="border: 1px solid #000">
+		 	<rect x="50" y="50" rx="10" ry="10" width="100" height="80" />
+		 </svg>
+		 
+		 <svg width="200" height="200" style="border: 1px solid #000">
+		 	<ellipse cx="80" cy="60" rx="75" ry="50" />
+		 </svg>
+		 
+		 <svg width="200" height="200" style="border: 1px solid #000">
+		 	<line x1="10" y1="10" x2="190" y2="190" style="stroke:orange; stroke-width:5" />
+		 </svg>
+		 
+		<svg width="200" height="200" style="border: 1px solid #000">
+			<polygon points="100,10 190,190 10,190" style="fill:#F0F;stroke:#505;stroke-width:10" />
+		</svg>
+		
+		<svg height="210" width="500">
+			<polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:lime;stroke:purple;stroke-width:5;fill-rule:nonzero;" />
+		</svg>
+		
+		<svg height="210" width="500">
+			<polygon points="100,10 40,198 190,78 10,78 160,198" style="fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;" />
+		</svg>
+
+		<svg height="400" width="450">
+			<path id="lineAB" d="M 100 350 l 150 -300" stroke="red"
+			stroke-width="3" fill="none" />
+			<path id="lineBC" d="M 250 50 l 150 300" stroke="red"
+			stroke-width="3" fill="none" />
+			<path d="M 175 200 l 150 0" stroke="green" stroke-width="3"
+			fill="none" />
+			<path d="M 100 350 q 150 -300 300 0" stroke="blue"
+			stroke-width="5" fill="none" />
+		</svg>
+	</body>
+</html>

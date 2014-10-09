@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+		<svg onmousedown="click_me(event)" onmousemove="move_me(event)" onmouseup="drop_me" id="chart" width="500" height="500" style="border:solid 1px #000">
+			
+		</svg>
+		
+		<script>
+			var my_array = [];
+			var is_down = false;
+			var current_dot = undefined;
+			
+			function click_me(event) {
+				console.log( event.offsetX, event.offsetY );
+				var x = event.offsetX;
+				var y = event.offsetY;
+				current_dot = document.createEementNS("http://www.w3.org/2000/svg", "circle");
+				current_dot.setAttributes(null, "cx", x);
+				current_dot.setAttributes(null, "cy", y);
+				current_dot.setAttributes(null,  "r", r);
+				current_dot.setAttributes(null, "fill", "#000");
+				
+				document.getElementById("chart").appendChild(current_dot);
+			}
+			
+			function move_me(event) {
+				
+			}
+			
+			function drop_me(event) {
+				
+			}
+			 
+		</script>
+	</body>
+</html>
