@@ -5,35 +5,42 @@
 	</head>
 	<body>
 		
-		<svg onmousedown="click_me(event)" onmousemove="move_me(event)" onmouseup="drop_me" id="chart" width="500" height="500" style="border:solid 1px #000">
-			
+		<svg id="chart" width="500" height="500" style="border:solid 1px #000">
+			<circle id="circle-1" r="20" cx="100" cy="100" stroke="2" />
 		</svg>
 		
 		<script>
-			var my_array = [];
-			var is_down = false;
-			var current_dot = undefined;
-			
-			function click_me(event) {
-				console.log( event.offsetX, event.offsetY );
-				var x = event.offsetX;
-				var y = event.offsetY;
-				current_dot = document.createEementNS("http://www.w3.org/2000/svg", "circle");
-				current_dot.setAttributes(null, "cx", x);
-				current_dot.setAttributes(null, "cy", y);
-				current_dot.setAttributes(null,  "r", r);
-				current_dot.setAttributes(null, "fill", "#000");
-				
-				document.getElementById("chart").appendChild(current_dot);
-			}
-			
-			function move_me(event) {
-				
-			}
-			
-			function drop_me(event) {
-				
-			}
+			 
+			 // Setup a mouse down function
+			 document.getElementById("circle-1").onmousedown = function(event) {
+			 	console.log("Adding events");
+			 	
+			 	// get the offsets. This is difference between the location of the object 
+			 	// and the location of the mouse.
+			 	var offsetX = document.getElementById("circle-1").getAttribute("cx") - event.clientX;
+			 	var offsetY = document.getElementById("circle-1").getAttribute("cy") - event.clientY;
+			 	
+			 	// Add an event listener to the window listening for mousemove events
+			 	window.onmousemove = function(event) {
+			 		// console.log( event.clientX );
+			 		// Find the position of the object by adding the mouse position to the offset. 
+			 		var x = event.clientX + offsetX;
+			 		var y = event.clientY + offsetY;
+			 		// Set the position of the obejct. 
+			 		document.getElementById("circle-1").setAttribute("cx", x );
+			 		document.getElementById("circle-1").setAttribute("cy", y );
+			 	};
+			 	
+			 	// Remove the mousemove and mouseup listeners. 
+			 	window.onmouseup = function() {
+			 		console.log("removing events");
+			 		window.onmousemove = null;
+			 		window.onmouseup = null;
+			 	}
+			 	
+			 };
+			 
+			 document.getElementById("circle-1").onmouseup
 			 
 		</script>
 	</body>
