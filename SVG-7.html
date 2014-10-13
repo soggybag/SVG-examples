@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+		<svg id="chart" width="500" height="500" style="border:solid 1px #000">
+			<polygon id="polygon-1" points="100,100 300,100 300,300 100,300" fill="#f00" />
+			<circle class="draggable" id="circle-1" r="20" cx="100" cy="100" stroke="2" />
+			<circle class="draggable" id="circle-2" r="20" cx="300" cy="100" stroke="2" />
+			<circle class="draggable" id="circle-4" r="20" cx="300" cy="300" stroke="2" />
+			<circle class="draggable" id="circle-3" r="20" cx="100" cy="300" stroke="2" />
+		</svg>
+		
+		<script>
+			// make array of elements to drag
+			 var draggables = document.getElementsByClassName("draggable");
+			 
+			 // Use this function to update the polygon as circles are dragged. 
+			 function update_polygon() {
+			 	var points = "";
+			 	// Loop through all circles
+			 	for (var i = 0; i < draggables.length; i++) {
+			 		// Collect the x and y positions of each circle.
+			 		var x = draggables[i].getAttribute("cx");
+			 		var y = draggables[i].getAttribute("cy");
+			 		// Put all x and y values together in the correct format. 
+			 		points += x + "," + y + " ";
+			 		// Update the points attribute of the polygon to make the updated shape. 
+			 		document.getElementById("polygon-1").setAttribute("points", points);
+			 	}
+			 }
+			 
+			 function make_draggable( el ) {
+			 	var drag_target = el;
+			 	el.onmousedown = function(event) {
+			 		var offsetX = drag_target.getAttribute("cx") - event.clientX;
+			 		var offsetY = drag_target.getAttribute("cy") - event.clientY;
+			 		
+			 		window.onmousemove = function(event) {
+						// console.log( event.clientX );
+						// Find the position of the object by adding the mouse position to the offset. 
+						var x = event.clientX + offsetX;
+						var y = event.clientY + offsetY;
+						// Set the position of the obejct. 
+						drag_target.setAttribute("cx", x);
+						drag_target.setAttribute("cy", y);
+						update_polygon();
+					};
+					
+					// Remove the mousemove and mouseup listeners. 
+					window.onmouseup = function() {
+						window.onmousemove = null;
+						window.onmouseup = null;
+					}
+			 	}
+			 }
+			 
+			 for (var i = 0; i<draggables.length; i++) {
+			 	make_draggable( draggables[i] );
+			 }
+			 
+			 
+			 
+		</script>
+	</body>
+</html>

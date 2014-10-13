@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		
+		<svg id="chart" width="500" height="500" style="border:solid 1px #000">
+			<circle class="draggable" id="circle-1" r="20" cx="100" cy="100" stroke="2" />
+			<circle class="draggable" id="circle-2" r="20" cx="300" cy="100" stroke="2" />
+			<circle class="draggable" id="circle-3" r="20" cx="100" cy="300" stroke="2" />
+			<circle class="draggable" id="circle-4" r="20" cx="300" cy="300" stroke="2" />
+		</svg>
+		
+		<script>
+			 
+			 // Make a function to make draggable objects. This automates the process. 
+			 // Pass an element to the function to make it draggable. 
+			 function make_draggable( el ) {
+			 	var drag_target = el;
+			 	el.onmousedown = function(event) {
+			 		var offsetX = drag_target.getAttribute("cx") - event.clientX;
+			 		var offsetY = drag_target.getAttribute("cy") - event.clientY;
+			 		
+			 		window.onmousemove = function(event) {
+						// console.log( event.clientX );
+						// Find the position of the object by adding the mouse position to the offset. 
+						var x = event.clientX + offsetX;
+						var y = event.clientY + offsetY;
+						// Set the position of the obejct. 
+						drag_target.setAttribute("cx", x );
+						drag_target.setAttribute("cy", y );
+					};
+					
+					// Remove the mousemove and mouseup listeners. 
+					window.onmouseup = function() {
+						console.log("removing events");
+						window.onmousemove = null;
+						window.onmouseup = null;
+					}
+			 	}
+			 }
+			 
+			 
+			 var draggables = document.getElementsByClassName("draggable");
+			 
+			 for (var i = 0; i<draggables.length; i++) {
+			 	make_draggable( draggables[i] );
+			 }
+			 
+			 
+			 
+		</script>
+	</body>
+</html>
