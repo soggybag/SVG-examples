@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		
+		<style>
+		
+			polyline {
+				transition: 400ms;
+			}
+			
+			.hide-line {
+				opacity: 0;
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		
+		<svg id="chart" width="500" height="200" style="border:solid 1px #000">
+			
+		</svg>
+		
+		<button id="mood-button">Mood</button>
+		<button id="pain-button">Pain</button>
+		<button id="fatigue-button">Fatigue</button>
+		
+		<script>
+		
+			document.getElementById("mood-button").onmousedown = function(event) {
+				document.getElementsByTagName("polyline")[0].classList.toggle("hide-line");
+			};
+			
+			document.getElementById("pain-button").onmousedown = function(event) {
+				document.getElementsByTagName("polyline")[1].classList.toggle("hide-line");
+			};
+			
+			document.getElementById("fatigue-button").onmousedown = function(event) {
+				document.getElementsByTagName("polyline")[2].classList.toggle("hide-line");
+			};
+			
+			var client = new XMLHttpRequest();
+			client.open('GET', 'http://lu-webdesign.com/testing/thesis2/read-record.php');
+			client.onreadystatechange = function() {
+				draw_chart( JSON.parse(this.responseText) );
+			}
+			client.send();
+			
+			function draw_chart( my_array ) {
+				var line_1 = make_line( my_array, "mood", "rgba(255,0,0,0.5)" );
+				document.getElementById("chart").appendChild(line_1);
+				document.getElementById("chart").appendChild( make_line( my_array, "pain", "rgba(255,0,255,0.5)" ) );
+				document.getElementById("chart").appendChild( make_line( my_array, "fatigue", "rgba(255,222,0,0.5)" ) );
+			}
+			
+			
+			
+			function make_line( my_array, prop, color ) {
+				var points = "";
+				for ( var i = 0; i < my_array.length; i++) {
+					var cx = 500 / my_array.length * i;
+					var cy = 200 / 5 * my_array[i][prop];
+					points += cx+","+cy+" ";
+				}
+				
+				var line = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
+				line.setAttribute("points", points);
+				line.setAttribute("style", "fill:none");
+				line.setAttribute("stroke", color);
+				line.setAttribute("stroke-width", "3");
+
+				return line;
+			}
+			
+			
+		</script>
+	</body>
+</html>
